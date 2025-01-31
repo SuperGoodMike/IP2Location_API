@@ -2,7 +2,7 @@
 IP Geolocation PHP-based API service
 
 ## Features
-- IP Geolocation (City, Region, Country, GPS)
+- IP Geolocation (City, Region, Country, Latitude, Longitude, Timezone, Local Time, Temperature, Humidity)
 - Local Time and Weather Data
 - API Key Management
 - Rate Limiting
@@ -108,10 +108,39 @@ define('RATE_LIMIT', 100);         // Default requests/minute
 define('RATE_LIMIT_WINDOW', 60);   // Seconds
 
 ```
+### Admin Panel Security Setup
+#### Create .htpasswd File
+- Location: Store outside web root (e.g., /etc/secure/ip-api/.htpasswd)
+``` bash
+# Install Apache utils (if not installed)
+sudo apt install apache2-utils
 
+# Create .htpasswd file (replace /path/to/ with your secure directory)
+sudo mkdir -p /etc/secure/ip-api/
+sudo htpasswd -c /etc/secure/ip-api/.htpasswd admin
+```
+- You’ll be prompted to set a password for the admin user
+#### Set Permissions
+``` bash
+sudo chown www-data:www-data /etc/secure/ip-api/.htpasswd
+sudo chmod 640 /etc/secure/ip-api/.htpasswd
+```
+#### Configure .htaccess in Admin Directory
+Create/update /ip-api/admin/.htaccess:
+``` bash
+AuthType Basic
+AuthName "Admin Area - Restricted Access"
+AuthUserFile /etc/secure/ip-api/.htpasswd
+Require valid-user
+
+# Block direct access to .htaccess
+<Files ".htaccess">
+    Require all denied
+</Files>
+```
 
 ### Cron Jobs
-- Update GeoLite2 Database (Weekly)
+- Update GeoLite2 Database (Weekly) (replace "YOUR_KEY" with your free api key from maxmind)
 ``` bash
 0 0 * * 0 wget "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=YOUR_KEY&suffix=tar.gz" -O /path/to/ip-api/data/geolite.tar.gz && tar -xzf /path/to/ip-api/data/geolite.tar.gz --strip-components=1 -C /path/to/ip-api/data/GeoLite2-City.mmdb
 ```
