@@ -13,7 +13,22 @@ define('DB_PASS', 'Your Password');
 
 // Admin Credentials (Username and Hashed Password)
 define('ADMIN_USER', 'YourAdmin');
-define('ADMIN_PASS_HASH', password_hash('YourSecretPassword', PASSWORD_BCRYPT));
+
+// Read the hashed password from the .htpasswd file
+$htpasswdFile = '/etc/secure/ip-api/.htpasswd';
+if (file_exists($htpasswdFile)) {
+    $htpasswdContent = file_get_contents($htpasswdFile);
+    if ($htpasswdContent !== false) {
+        $lines = explode("\n", trim($htpasswdContent));
+        foreach ($lines as $line) {
+            list($user, $hash) = explode(':', $line, 2);
+            if ($user === 'admin') {
+                define('ADMIN_PASS_HASH', $hash);
+                break;
+            }
+        }
+    }
+}
 
 // MaxMind GeoLite2 Database Path
 define('MAXMIND_DB_PATH', __DIR__ . '/../data/GeoLite2-City.mmdb');
