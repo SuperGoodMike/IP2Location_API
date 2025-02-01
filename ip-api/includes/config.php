@@ -13,7 +13,7 @@ define('DB_PASS', 'Your Password');
 
 // Admin Credentials (Username and Hashed Password)
 define('ADMIN_USER', 'YourAdmin');
-define('ADMIN_PASS_HASH', password_hash('Your Secret Password', PASSWORD_DEFAULT));
+define('ADMIN_PASS_HASH', password_hash('YourSecretPassword', PASSWORD_BCRYPT));
 
 // MaxMind GeoLite2 Database Path
 define('MAXMIND_DB_PATH', __DIR__ . '/../data/GeoLite2-City.mmdb');
