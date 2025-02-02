@@ -70,8 +70,7 @@ $date = new DateTime('now', new DateTimeZone($geo['timezone']));
         </div>
     </section>
 
-    <!-- User Data Section (Commented Out) -->
-    <!--
+    <!-- User Data Section -->
     <section class="py-5">
         <div class="container">
             <h2 class="mb-4">Your Geolocation and Weather Data</h2>
@@ -96,7 +95,6 @@ $date = new DateTime('now', new DateTimeZone($geo['timezone']));
             </table>
         </div>
     </section>
-    -->
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">
