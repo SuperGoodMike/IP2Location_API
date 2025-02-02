@@ -5,6 +5,11 @@ require_once __DIR__ . '/../vendor/autoload.php'; // If using Composer for MaxMi
 use MaxMind\Db\Reader;
 
 function get_geolocation($ip) {
+    // Validate IP address
+    if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+        throw new Exception("Invalid IP address");
+    }
+
     if (!file_exists(MAXMIND_DB_PATH)) {
         throw new Exception("GeoLite2 database not found");
     }
