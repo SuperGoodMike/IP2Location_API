@@ -50,14 +50,19 @@ try {
         'timezone' => $geo['timezone'],
         'local_time' => $date->format('Y-m-d H:i:s'),
         'temperature' => $weather['temperature'],
+        'temperature_unit' => $weather['temperature_unit'],
         'humidity' => $weather['humidity'],
         'cloudcover' => $weather['cloudcover'],
         'windspeed' => $weather['windspeed'],
+        'windspeed_unit' => $weather['windspeed_unit'],
         'winddirection' => $weather['winddirection'],
+        'winddirection_unit' => $weather['winddirection_unit'],
         'is_day' => $weather['is_day'],
         'weathercode' => $weather['weathercode'],
         'pressure' => $weather['pressure'],
-        'precipitation' => $weather['precipitation']
+        'pressure_unit' => $weather['pressure_unit'],
+        'precipitation' => $weather['precipitation'],
+        'precipitation_unit' => $weather['precipitation_unit']
     ]);
 
 } catch (Exception $e) {
