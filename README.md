@@ -117,7 +117,7 @@ sudo apt install apache2-utils
 
 # Create .htpasswd file (replace /path/to/ with your secure directory)
 sudo mkdir -p /etc/secure/ip-api/
-sudo htpasswd -c /etc/secure/ip-api/.htpasswd admin
+sudo htpasswd -B /etc/secure/ip-api/.htpasswd admin
 ```
 - You’ll be prompted to set a password for the admin user
 #### Set Permissions
