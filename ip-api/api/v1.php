@@ -13,7 +13,8 @@ try {
         http_response_code(401);
         die(json_encode(['error' => 'API key is missing']));
     }
-
+error_log("API Key from .htpasswd: " . API_KEY);
+error_log("API Key from GET: " . $api_key);
     $stmt = $pdo->prepare("SELECT * FROM apikeys WHERE `key` = ?");
     $stmt->execute([$api_key]);
     $result = $stmt->fetch();
