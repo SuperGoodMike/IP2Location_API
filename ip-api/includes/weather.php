@@ -19,9 +19,9 @@ function get_weather($lat, $lon) {
         'is_day' => $data['current_weather']['is_day'] ?? null,
         'weathercode' => $data['current_weather']['weathercode'] ?? null,
         'pressure' => $data['hourly']['pressure_msl'][0] ?? null,
-        'pressure_unit' => $data['current_weather_units']['pressure_msl'] ?? null,
+        'pressure_unit' => $data['hourly_units']['pressure_msl'] ?? null,
         'precipitation' => $data['hourly']['precipitation'][0] ?? null,
-        'precipitation_unit' => $data['current_weather_units']['precipitation'] ?? null
+        'precipitation_unit' => $data['hourly_units']['precipitation'] ?? null
     ];
 }
 ?>
