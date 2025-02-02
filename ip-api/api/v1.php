@@ -50,7 +50,11 @@ try {
         'timezone' => $geo['timezone'],
         'local_time' => $date->format('Y-m-d H:i:s'),
         'temperature' => $weather['temperature'],
-        'humidity' => $weather['humidity']
+        'humidity' => $weather['humidity'],
+        'cloudcover' => $weather['cloudcover'],
+        'windspeed' => $weather['windspeed'],
+        'pressure' => $weather['pressure'],
+        'precipitation' => $weather['precipitation']
     ]);
 
 } catch (Exception $e) {
