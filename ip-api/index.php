@@ -1,6 +1,14 @@
 <?php
 // /srv/www/wordpress/ip-api/index.php
 require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/geoip.php';
+require_once __DIR__ . '/includes/weather.php';
+
+// Fetch user data
+$ip = $_SERVER['REMOTE_ADDR'];
+$geo = get_geolocation($ip);
+$weather = get_weather($geo['latitude'], $geo['longitude']);
+$date = new DateTime('now', new DateTimeZone($geo['timezone']));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,58 +67,29 @@ require_once __DIR__ . '/includes/config.php';
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- User Data Section -->
     <section class="py-5">
         <div class="container">
-            <div class="row g-4">
-                <div class="col-md-3 text-center">
-                    <i class="fas fa-map-marker-alt feature-icon mb-3"></i>
-                    <h4>Geolocation</h4>
-                    <p>City, region, country, and GPS coordinates</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <i class="fas fa-cloud-sun feature-icon mb-3"></i>
-                    <h4>Weather Data</h4>
-                    <p>Real-time temperature and humidity</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <i class="fas fa-key feature-icon mb-3"></i>
-                    <h4>API Keys</h4>
-                    <p>Secure key management system</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <i class="fas fa-tachometer-alt feature-icon mb-3"></i>
-                    <h4>Rate Limiting</h4>
-                    <p>100 requests/minute threshold</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Start Section -->
-    <section class="bg-light py-5">
-        <div class="container text-center">
-            <h2 class="mb-4">Get Started in Minutes</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-book me-2"></i>Documentation</h5>
-                            <p class="card-text">Full API reference and code examples</p>
-                            <a href="docs/" class="btn btn-primary">View Docs</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-user-shield me-2"></i>Admin Panel</h5>
-                            <p class="card-text">Manage API keys and access</p>
-                            <a href="admin/login.php" class="btn btn-warning">Admin Login</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h2 class="mb-4">Your Geolocation and Weather Data</h2>
+            <table class="table table-bordered">
+                <tr><th>IP</th><td><?= htmlspecialchars($ip) ?></td></tr>
+                <tr><th>City</th><td><?= htmlspecialchars($geo['city']) ?></td></tr>
+                <tr><th>Region</th><td><?= htmlspecialchars($geo['region']) ?></td></tr>
+                <tr><th>Country</th><td><?= htmlspecialchars($geo['country']) ?></td></tr>
+                <tr><th>Latitude</th><td><?= htmlspecialchars($geo['latitude']) ?></td></tr>
+                <tr><th>Longitude</th><td><?= htmlspecialchars($geo['longitude']) ?></td></tr>
+                <tr><th>Timezone</th><td><?= htmlspecialchars($geo['timezone']) ?></td></tr>
+                <tr><th>Local Time</th><td><?= htmlspecialchars($date->format('Y-m-d H:i:s')) ?></td></tr>
+                <tr><th>Temperature</th><td><?= htmlspecialchars($weather['temperature'] . ' ' . $weather['temperature_unit']) ?></td></tr>
+                <tr><th>Humidity</th><td><?= htmlspecialchars($weather['humidity']) ?>%</td></tr>
+                <tr><th>Cloudcover</th><td><?= htmlspecialchars($weather['cloudcover']) ?>%</td></tr>
+                <tr><th>Windspeed</th><td><?= htmlspecialchars($weather['windspeed'] . ' ' . $weather['windspeed_unit']) ?></td></tr>
+                <tr><th>Wind Direction</th><td><?= htmlspecialchars($weather['winddirection'] . ' ' . $weather['winddirection_unit']) ?></td></tr>
+                <tr><th>Is Day</th><td><?= htmlspecialchars($weather['is_day'] ? 'Yes' : 'No') ?></td></tr>
+                <tr><th>Weather Code</th><td><?= htmlspecialchars($weather['weathercode']) ?></td></tr>
+                <tr><th>Pressure</th><td><?= htmlspecialchars($weather['pressure'] . ' ' . $weather['pressure_unit']) ?></td></tr>
+                <tr><th>Precipitation</th><td><?= htmlspecialchars($weather['precipitation'] . ' ' . $weather['precipitation_unit']) ?></td></tr>
+            </table>
         </div>
     </section>
 
