@@ -11,6 +11,23 @@ define('DB_NAME', 'Your DB Name');
 define('DB_USER', 'Your User');
 define('DB_PASS', 'Your Password');
 
+// Read the API key
+$htpasswdFile = '/etc/secure/ip-api/.htpasswd';
+$api_key = '';
+if (file_exists($htpasswdFile)) {
+    $htpasswdContent = file_get_contents($htpasswdFile);
+    if ($htpasswdContent !== false) {
+        $lines = explode("\n", trim($htpasswdContent));
+        foreach ($lines as $line) {
+            list($key, $value) = explode(':', $line, 2);
+            if ($key === 'api_key') {
+                $api_key = trim($value);
+                break;
+            }
+        }
+    }
+}
+define('API_KEY', $api_key);
 // Admin Credentials (Username and Hashed Password)
 define('ADMIN_USER', 'YourAdmin');
 
