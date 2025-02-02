@@ -38,8 +38,9 @@ define('RATE_LIMIT', 100);
 define('RATE_LIMIT_WINDOW', 60); // Seconds
 
 // Open-Meteo API URL
-define('OPEN_METEO_URL', 'https://api.open-meteo.com/v1/forecast?current_weather=true&hourly=relativehumidity_2m');
-
+#define('OPEN_METEO_URL', 'https://api.open-meteo.com/v1/forecast?current_weather=true&hourly=relativehumidity_2m');
+#define('OPEN_METEO_URL', 'https://api.open-meteo.com/v1/forecast?current_weather=true&hourly=temperature_2m,relativehumidity_2m,cloudcover,windspeed_10m,pressure_msl,precipitation');
+define('OPEN_METEO_URL', 'https://api.open-meteo.com/v1/forecast?current_weather=true');
 // Create PDO instance for MySQL
 try {
     $pdo = new PDO(
