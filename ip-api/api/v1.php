@@ -9,9 +9,19 @@ header('Content-Type: application/json');
 try {
     // Validate API Key
     $api_key = $_GET['key'] ?? '';
+    if (empty($api_key)) {
+        http_response_code(401);
+        die(json_encode(['error' => 'API key is missing']));
+    }
+
     $stmt = $pdo->prepare("SELECT * FROM apikeys WHERE `key` = ?");
     $stmt->execute([$api_key]);
-    if (!$stmt->fetch()) {
+    $result = $stmt->fetch();
+
+    // Debugging output
+    error_log("API Key Result: " . print_r($result, true));
+
+    if (!$result) {
         http_response_code(401);
         die(json_encode(['error' => 'Invalid API key']));
     }
@@ -36,6 +46,9 @@ try {
     // Weather
     $weatherService = new WeatherService();
     $weather = $weatherService->get_weather($geo['latitude'], $geo['longitude']);
+
+    // Debugging output
+    error_log("Weather Data: " . print_r($weather, true));
 
     // Local Time
     $date = new DateTime('now', new DateTimeZone($geo['timezone']));
@@ -68,6 +81,7 @@ try {
 
 } catch (Exception $e) {
     http_response_code(500);
+    error_log("Exception: " . $e->getMessage());
     die(json_encode(['error' => $e->getMessage()]));
 }
 ?>
