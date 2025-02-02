@@ -34,7 +34,8 @@ try {
     }
 
     // Weather
-    $weather = get_weather($geo['latitude'], $geo['longitude']);
+    $weatherService = new WeatherService();
+    $weather = $weatherService->get_weather($geo['latitude'], $geo['longitude']);
 
     // Local Time
     $date = new DateTime('now', new DateTimeZone($geo['timezone']));
