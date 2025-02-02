@@ -4,9 +4,30 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/geoip.php';
 require_once __DIR__ . '/includes/weather.php';
 
-// Fetch user data
+// Read the API key from .htpasswd file
+$htpasswdFile = '/etc/secure/ip-api/.htpasswd';
+$api_key = '';
+if (file_exists($htpasswdFile)) {
+    $htpasswdContent = file_get_contents($htpasswdFile);
+    if ($htpasswdContent !== false) {
+        $lines = explode("\n", trim($htpasswdContent));
+        foreach ($lines as $line) {
+            list($key, $value) = explode(':', $line, 2);
+            if ($key === 'api_key') {
+                $api_key = trim($value);
+                break;
+            }
+        }
+    }
+}
+
+if (empty($api_key)) {
+    die('API key not found.');
+}
+
+// Fetch user data using API key
 $ip = $_SERVER['REMOTE_ADDR'];
-$geo = get_geolocation($ip);
+$geo = get_geolocation($ip, $api_key);
 
 $weatherService = new WeatherService();
 $weather = $weatherService->get_weather($geo['latitude'], $geo['longitude']);
