@@ -53,6 +53,9 @@ try {
         'humidity' => $weather['humidity'],
         'cloudcover' => $weather['cloudcover'],
         'windspeed' => $weather['windspeed'],
+        'winddirection' => $weather['winddirection'],
+        'is_day' => $weather['is_day'],
+        'weathercode' => $weather['weathercode'],
         'pressure' => $weather['pressure'],
         'precipitation' => $weather['precipitation']
     ]);
