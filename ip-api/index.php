@@ -4,30 +4,13 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/geoip.php';
 require_once __DIR__ . '/includes/weather.php';
 
-// Read the API key from .htpasswd file
-$htpasswdFile = '/etc/secure/ip-api/.htpasswd';
-$api_key = '';
-if (file_exists($htpasswdFile)) {
-    $htpasswdContent = file_get_contents($htpasswdFile);
-    if ($htpasswdContent !== false) {
-        $lines = explode("\n", trim($htpasswdContent));
-        foreach ($lines as $line) {
-            list($key, $value) = explode(':', $line, 2);
-            if ($key === 'api_key') {
-                $api_key = trim($value);
-                break;
-            }
-        }
-    }
-}
-
-if (empty($api_key)) {
+if (empty(API_KEY)) {
     die('API key not found.');
 }
 
 // Fetch user data using API key
 $ip = $_SERVER['REMOTE_ADDR'];
-$geo = get_geolocation($ip, $api_key);
+$geo = get_geolocation($ip, API_KEY);
 
 $weatherService = new WeatherService();
 $weather = $weatherService->get_weather($geo['latitude'], $geo['longitude']);
@@ -59,9 +42,7 @@ $date = new DateTime('now', new DateTimeZone($geo['timezone']));
             position: relative;
         }
         .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+            position: absolute, top: 10px, right: 10px;
         }
     </style>
 </head>
