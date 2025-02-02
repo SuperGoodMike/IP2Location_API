@@ -1,6 +1,6 @@
 <?php
 class WeatherService {
-    private function get_weather($lat, $lon) {
+    public function get_weather($lat, $lon) {
         // Validate latitude and longitude
         if (!is_numeric($lat) || !is_numeric($lon) || $lat < -90 || $lat > 90 || $lon < -180 || $lon > 180) {
             throw new Exception("Invalid latitude or longitude");
