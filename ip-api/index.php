@@ -7,7 +7,10 @@ require_once __DIR__ . '/includes/weather.php';
 // Fetch user data
 $ip = $_SERVER['REMOTE_ADDR'];
 $geo = get_geolocation($ip);
-$weather = get_weather($geo['latitude'], $geo['longitude']);
+
+$weatherService = new WeatherService();
+$weather = $weatherService->get_weather($geo['latitude'], $geo['longitude']);
+
 $date = new DateTime('now', new DateTimeZone($geo['timezone']));
 ?>
 <!DOCTYPE html>
