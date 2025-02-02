@@ -76,10 +76,7 @@ $default_rate_limit = RATE_LIMIT;
                         <a class="nav-link" href="path/to/docs.html">Docs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="path/to/homepage.html">App Homepage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
+                        <a class="nav-link" href="path/to/homepage.html">Logout</a>
                     </li>
                 </ul>
             </div>
