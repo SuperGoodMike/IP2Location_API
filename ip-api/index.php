@@ -1,5 +1,4 @@
 <?php
-// /srv/www/wordpress/ip-api/index.php
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/geoip.php';
 require_once __DIR__ . '/includes/weather.php';
