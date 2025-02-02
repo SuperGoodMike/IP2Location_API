@@ -1,11 +1,22 @@
 <?php
 function get_weather($lat, $lon) {
+    // Validate latitude and longitude
+    if (!is_numeric($lat) || !is_numeric($lon) || $lat < -90 || $lat > 90 || $lon < -180 || $lon > 180) {
+        throw new Exception("Invalid latitude or longitude");
+    }
+
     $url = OPEN_METEO_URL . "&latitude=$lat&longitude=$lon";
-    $response = file_get_contents($url);
+    $response = @file_get_contents($url);
+
+    if ($response === FALSE) {
+        throw new Exception("Error fetching weather data");
+    }
+
     $data = json_decode($response, true);
 
-    // Debugging: Print the API response
-    #var_dump($data);
+    if (!$data) {
+        throw new Exception("Invalid weather data");
+    }
 
     return [
         'temperature' => $data['current_weather']['temperature'] ?? null,
