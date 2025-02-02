@@ -12,6 +12,9 @@ function get_weather($lat, $lon) {
         'humidity' => $data['hourly']['relativehumidity_2m'][0] ?? null,
         'cloudcover' => $data['hourly']['cloudcover'][0] ?? null,
         'windspeed' => $data['current_weather']['windspeed'] ?? null,
+        'winddirection' => $data['current_weather']['winddirection'] ?? null,
+        'is_day' => $data['current_weather']['is_day'] ?? null,
+        'weathercode' => $data['current_weather']['weathercode'] ?? null,
         'pressure' => $data['hourly']['pressure_msl'][0] ?? null,
         'precipitation' => $data['hourly']['precipitation'][0] ?? null
     ];
