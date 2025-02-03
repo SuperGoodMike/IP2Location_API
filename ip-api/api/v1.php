@@ -38,7 +38,7 @@ error_log("API Key from GET: " . $api_key);
     }
 
     // Geolocation
-    $geo = get_geolocation($ip);
+    $geo = get_geolocation($ip, $api_key);
     if (!$geo) {
         http_response_code(404);
         die(json_encode(['error' => 'Location not found']));
