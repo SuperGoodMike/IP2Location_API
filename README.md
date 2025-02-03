@@ -119,7 +119,6 @@ sudo apt install apache2-utils
 sudo mkdir -p /etc/secure/ip-api/
 sudo htpasswd -c /etc/secure/ip-api/.htpasswd
 sudo htpasswd -B /etc/secure/ip-api/.htpasswd admin
-sudo htpasswd -B /etc/secure/ip-api/.htpasswd api_key
 ```
 - You’ll be prompted to set a password for the admin user
 #### Set Permissions
