@@ -4,16 +4,9 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/geoip.php';
 require_once __DIR__ . '/includes/weather.php';
 
-if (empty(API_KEY)) {
-    die('API key not found.');
-}
-
-// Debugging line to log the API key
-error_log("API Key from .htpasswd: " . API_KEY);
-
 // Fetch user data using API key
 $ip = $_SERVER['REMOTE_ADDR'];
-$geo = get_geolocation($ip, API_KEY);
+$geo = get_geolocation($ip);
 
 $weatherService = new WeatherService();
 $weather = $weatherService->get_weather($geo['latitude'], $geo['longitude']);
