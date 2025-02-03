@@ -13,13 +13,13 @@ try {
         http_response_code(401);
         die(json_encode(['error' => 'API key is missing']));
     }
-error_log("API Key from .htpasswd: " . API_KEY);
-error_log("API Key from GET: " . $api_key);
+
     $stmt = $pdo->prepare("SELECT * FROM apikeys WHERE `key` = ?");
     $stmt->execute([$api_key]);
     $result = $stmt->fetch();
 
     // Debugging output
+    error_log("API Key from GET: " . $api_key);
     error_log("API Key Result: " . print_r($result, true));
 
     if (!$result) {
@@ -38,7 +38,7 @@ error_log("API Key from GET: " . $api_key);
     }
 
     // Geolocation
-    $geo = get_geolocation($ip, $api_key);
+    $geo = get_geolocation($ip, $api_key); // Pass the API key here
     if (!$geo) {
         http_response_code(404);
         die(json_encode(['error' => 'Location not found']));
