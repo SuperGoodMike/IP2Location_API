@@ -28,6 +28,7 @@ if (file_exists($htpasswdFile)) {
     }
 }
 define('API_KEY', $api_key);
+
 // Admin Credentials (Username and Hashed Password)
 define('ADMIN_USER', 'YourAdmin');
 
